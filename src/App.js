@@ -1,7 +1,11 @@
 import './App.css';
 import Header from './components/Header'
 import Footer from './components/Footer'
-import CityCard from './components/CityCard';
+import CityCard from './components/CityCard'
+import ContactUs from './pages/ContactUs'
+import AboutUs from './pages/AboutUs'
+import CityDetails from './pages/CityDetails'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
 function App() {
 
@@ -45,16 +49,25 @@ const cities = [
 ]
 
   return (
-    <div className='App'>
+    <BrowserRouter>
       <Header user={user}/>
-      {
-        cities.map((item)=>{
-          return <CityCard city={item}/>
-        })
-      }
+      <Routes>
+        
+        <Route path="/" element={
+          <div>
+            {
+          cities.map((item)=>{
+          return <CityCard  key={item._id} city={item}/>
+          })
+        }
+          </div>
+        }/>
+        <Route path="/contactus" element={<ContactUs/>}/>
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/citydetails/:cityName" element={<CityDetails cities= {cities} />}/>
+      </Routes> 
       <Footer />
-
-    </div>
+    </BrowserRouter>
   );
 }
 
